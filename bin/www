@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+/**
+ *
+ */
+;(function(){
+  "use strict";
+
+  // Module dependencies
+  var http = require('http');
+  var debug = require('debug')('Mirror:server');
+  var app = require('../app');
+  var errorHandler = require('errorhandler');
+
+  var port = process.env.PORT || '13000';
+  var bind = (typeof port == "string") ? "Pipe " + port : "Port " + port;
+
+  var server = http.createServer(app);
+
+  app.set('port', port);
+
+  server.listen(port);
+
+  server.on('listening', onListening);
+
+  app.use(errorHandler());
+
+  /**
+   * Event listener for HTTP server "listening" event.
+   */
+
+  function onListening() {
+    var address = server.address();
+    console.log("Listening on " + address.address + " port " + address.port);
+  }
+
+})();

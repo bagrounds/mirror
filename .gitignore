@@ -1,0 +1,4 @@
+*.css
+*.iml
+.idea
+node_modules
